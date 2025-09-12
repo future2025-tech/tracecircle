@@ -137,9 +137,10 @@ function Department() {
       <table border="1" cellPadding="10" style={{ borderCollapse: "collapse", width: "100%", margin: "20px auto" }}>
         <thead style={{ backgroundColor: "#f0f0f0" }}>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Roles</th>
+            <th>Dept ID</th>
+            <th>Dept Name</th>
+            <th>Dept Role</th>
+            <th>Organization</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -192,6 +193,13 @@ function Department() {
             <form onSubmit={handleSubmit}>
               <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleInputChange} required style={{ width: "100%", marginBottom: "10px", padding: "8px" }} />
               <input type="text" name="address" placeholder="Role" value={formData.address} onChange={handleInputChange} required style={{ width: "100%", marginBottom: "10px", padding: "8px" }} />
+              <select style={{ width: "100%", marginBottom: "10px", padding: "8px" }}>
+               <option value="">Select Organization</option>
+               <option value="option2">Future Transformation</option>
+               <option value="option3">Arcelormittal Steel</option>
+               <option value="option3">Jindal Steel</option>
+
+              </select>
               <button type="submit" style={{ background: "green", color: "white", padding: "10px", width: "100%", border: "none", borderRadius: "5px" }}>
                 {isUpdate ? "Update" : "Submit"}
               </button>

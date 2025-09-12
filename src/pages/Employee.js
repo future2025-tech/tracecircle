@@ -139,6 +139,7 @@ function Employee() {
           <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Organization</th>
             <th>Department</th>
             <th>Employee Role</th>
             <th>Gender</th>
@@ -193,6 +194,7 @@ function Employee() {
             <h2>{isUpdate ? "Update Employee" : "Add Employee"}</h2>
             <form onSubmit={handleSubmit}>
               <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleInputChange} required style={{ width: "100%", marginBottom: "10px", padding: "8px" }} />
+              <input type="text" name="address" placeholder="Organization" value={formData.address} onChange={handleInputChange} required style={{ width: "100%", marginBottom: "10px", padding: "8px" }} />
               <input type="text" name="address" placeholder="Department" value={formData.address} onChange={handleInputChange} required style={{ width: "100%", marginBottom: "10px", padding: "8px" }} />
                <input type="text" name="location" placeholder="Employee role" value={formData.location} onChange={handleInputChange} required style={{ width: "100%", marginBottom: "10px", padding: "8px" }} />
                <input type="text" name="location" placeholder="Gender" value={formData.location} onChange={handleInputChange} required style={{ width: "100%", marginBottom: "10px", padding: "8px" }} />

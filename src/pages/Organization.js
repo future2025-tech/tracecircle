@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
-import { FaRegSquare } from "react-icons/fa";
 
 function Organization() {
   const [showForm, setShowForm] = useState(false);
@@ -92,7 +91,7 @@ function Organization() {
           <div style={{ position: "relative", width: "250px" }}>
             <input
               type="text"
-              placeholder="Search by name or ID"
+              placeholder="Search by name"
               style={{
                 width: "100%",
                 padding: "10px 35px 10px 10px",
@@ -107,7 +106,7 @@ function Organization() {
           <div style={{ position: "relative", width: "250px", marginLeft: "40px" }}>
             <input
               type="text"
-              placeholder="Search by name or ID"
+              placeholder="Search by location"
               style={{
                 width: "100%",
                 padding: "10px 35px 10px 10px",
@@ -117,7 +116,7 @@ function Organization() {
                 fontSize: "14px",
               }}
             />
-            <FaRegSquare style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", color: "#888" }} />
+            <IoSearch style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", color: "#888" }} />
           </div>
         </div>
       </div>

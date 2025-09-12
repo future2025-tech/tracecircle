@@ -85,6 +85,8 @@ import Supply from "./pages/Supply";
 import Retailer from "./pages/Retailer";
 import Screen from "./pages/Screen";
 import SidebarLayout from "./SidebarLayout";
+import ForgotPassword from "./pages/ForgotPassword";
+
 
 function App() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -95,6 +97,8 @@ function App() {
         {/* Auth pages */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>} />
+
 
         {/* Protected Dashboard routes */}
         <Route
