@@ -71,10 +71,66 @@
 
 
 
+// import React from "react";
+// import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+// import Signup from "./Signup";
+// import Login from "./Login";
+// import Organization from "./pages/Organization";
+// import Department from "./pages/Department";
+// import Product from "./pages/Product";
+// import Employee from "./pages/Employee";
+// import Role from "./pages/Role";
+// import Logistic from "./pages/Logistic";
+// import Supply from "./pages/Supply";
+// import Retailer from "./pages/Retailer";
+// import Screen from "./pages/Screen";
+// import SidebarLayout from "./SidebarLayout";
+// import ForgotPassword from "./pages/ForgotPassword";
+
+
+// function App() {
+//   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+//   return (
+//     <Router>
+//       <Routes>
+//         {/* Auth pages */}
+//         <Route path="/signup" element={<Signup />} />
+//         <Route path="/login" element={<Login />} />
+//         <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>} />
+
+
+//         {/* Protected Dashboard routes */}
+//         <Route
+//           element={isLoggedIn ? <SidebarLayout /> : <Navigate to="/login" />}
+//         >
+//           <Route path="/organization" element={<Organization />} />
+//           <Route path="/department" element={<Department />} />
+//           <Route path="/product" element={<Product />} />
+//           <Route path="/employee" element={<Employee />} />
+//           <Route path="/role" element={<Role />} />
+//           <Route path="/logistic" element={<Logistic />} />
+//           <Route path="/supply" element={<Supply />} />
+//           <Route path="/retailer" element={<Retailer />} />
+//           <Route path="/screen" element={<Screen />} />
+//         </Route>
+
+//         {/* Default route → login */}
+//         <Route path="*" element={<Navigate to="/login" />} />
+//       </Routes>
+//     </Router>
+//   );
+// }
+
+// export default App;
+// App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Signup from "./Signup";
 import Login from "./Login";
+import ForgotPassword from "./pages/ForgotPassword";
+
+// Pages
 import Organization from "./pages/Organization";
 import Department from "./pages/Department";
 import Product from "./pages/Product";
@@ -84,9 +140,11 @@ import Logistic from "./pages/Logistic";
 import Supply from "./pages/Supply";
 import Retailer from "./pages/Retailer";
 import Screen from "./pages/Screen";
-import SidebarLayout from "./SidebarLayout";
-import ForgotPassword from "./pages/ForgotPassword";
+import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
 
+// Layout (MUI Navbar + Sidebar)
+import Layout from "./layout/Layout";
 
 function App() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -94,16 +152,17 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Auth pages */}
+        {/* Auth routes */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>} />
-
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
 
         {/* Protected Dashboard routes */}
         <Route
-          element={isLoggedIn ? <SidebarLayout /> : <Navigate to="/login" />}
+          element={isLoggedIn ? <Layout /> : <Navigate to="/login" />}
         >
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/organization" element={<Organization />} />
           <Route path="/department" element={<Department />} />
           <Route path="/product" element={<Product />} />
@@ -115,7 +174,7 @@ function App() {
           <Route path="/screen" element={<Screen />} />
         </Route>
 
-        {/* Default route → login */}
+        {/* Default → redirect */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
