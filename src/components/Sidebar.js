@@ -9,6 +9,7 @@ import {
   Box,
   Typography,
   Button,
+  IconButton,
 } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BusinessIcon from "@mui/icons-material/Business";
@@ -16,7 +17,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import BentoIcon from "@mui/icons-material/Bento";
 import HelpIcon from "@mui/icons-material/Help";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo Tracecircle.png";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"; // Added for the collapse button
 
 const navItems = [
   { text: "Dashboard", icon: <DashboardIcon />, path: "/" },
@@ -25,7 +27,7 @@ const navItems = [
   { text: "Settings", icon: <SettingsIcon />, path: "/settings" },
 ];
 
-export default function Sidebar({ drawerWidth, collapsedWidth, collapsed }) {
+export default function Sidebar({ drawerWidth, collapsedWidth, collapsed, onCollapseToggle }) {
   const location = useLocation();
 
   return (

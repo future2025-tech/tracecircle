@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
-import logo from "./assets/logo.png";
+import logo from "../assets/logo Tracecircle.png";
 
 function Login() {
   const inputWrapper = {position: "relative", marginBottom: "20px"};
