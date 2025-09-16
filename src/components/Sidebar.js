@@ -63,20 +63,47 @@ export default function Sidebar({ drawerWidth, collapsedWidth, collapsed, onColl
       {/* Nav Items */}
       <List sx={{ flexGrow: 1 }}>
         {navItems.map((item) => (
-          <ListItemButton
+           <ListItemButton
             key={item.text}
             component={Link}
             to={item.path}
             selected={location.pathname === item.path}
-            sx={{
+            sx={(theme) => ({
               borderRadius: 2,
               mx: 1,
               my: 0.5,
-            }}
+              "&:hover": {
+                backgroundColor:
+                  theme.palette.mode === "dark" ? "#303030" : "#E7F5EC",
+              },
+              "&.Mui-selected": {
+                backgroundColor:
+                  theme.palette.mode === "dark" ? "#303030" : "#E7F5EC",
+                "&:hover": {
+                  backgroundColor:
+                    theme.palette.mode === "dark" ? "#3a3a3a" : "#D6EFE0",
+                },
+              },
+            })}
           >
             <ListItemIcon>{item.icon}</ListItemIcon>
             {!collapsed && <ListItemText primary={item.text} />}
           </ListItemButton>
+
+          // <ListItemButton
+          //   key={item.text}
+          //   component={Link}
+          //   to={item.path}
+          //   selected={location.pathname === item.path}
+          //   sx={{
+          //     borderRadius: 2,
+          //     mx: 1,
+          //     my: 0.5,
+          //   }}
+          // >
+          //   <ListItemIcon>{item.icon}</ListItemIcon>
+          //   {!collapsed && <ListItemText primary={item.text} />}
+          // </ListItemButton>
         ))}
       </List>
 

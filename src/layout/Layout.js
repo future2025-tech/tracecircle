@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Toolbar } from "@mui/material";
+import { Box, Toolbar, useTheme } from "@mui/material";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import { Outlet } from "react-router-dom";
@@ -14,6 +14,8 @@ export default function Layout() {
     setCollapsed(!collapsed);
   };
 
+  const theme = useTheme();
+
   return (
     <Box sx={{ display: "flex" }}>
       <Sidebar
@@ -27,7 +29,7 @@ export default function Layout() {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 1,
+          p: 0,
         }}
       >
         <Navbar
@@ -35,7 +37,14 @@ export default function Layout() {
           onToggleSidebar={handleSidebarCollapseToggle} // Toggle the sidebar from the Navbar
         />
         <Toolbar />
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ 
+          height:"90vh",
+          p: 3,
+          background:
+            theme.palette.mode === "light"
+              ? "#fafafaff"
+              : theme.palette.background.paper,
+           }}>
           <Outlet />
         </Box>
       </Box>

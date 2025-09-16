@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { FaRegSquare } from "react-icons/fa";
+import { Box } from "@mui/material"
 
 function Product() {
   const [showForm, setShowForm] = useState(false);

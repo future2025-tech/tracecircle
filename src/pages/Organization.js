@@ -1,240 +1,10 @@
-// import { Typography } from "@mui/material";
-// import React, { useState, useEffect } from "react";
-// import { IoMdAdd } from "react-icons/io";
-// import { IoSearch } from "react-icons/io5";
-
-// function Organization() {
-//   const [showForm, setShowForm] = useState(false);
-//   const [showView, setShowView] = useState(false);
-//   const [formData, setFormData] = useState({ id: null, name: "", address: "", location: "" });
-//   const [organizations, setOrganizations] = useState([]);
-//   const [isUpdate, setIsUpdate] = useState(false); // to differentiate add vs update
-
-//   useEffect(() => {
-//     fetch("http://localhost:8080/api/organizations")
-//       .then(res => res.json())
-//       .then(data => setOrganizations(data))
-//       .catch(err => console.error(err));
-//   }, []);
-
-//   const handleInputChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   // Create or Update
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-
-//     if (isUpdate) {
-//       // update call
-//       fetch(`http://localhost:8080/api/organizations/${formData.id}`, {
-//         method: "PUT",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(formData),
-//       })
-//         .then(res => res.json())
-//         .then(updatedOrg => {
-//           setOrganizations(organizations.map(org => (org.id === updatedOrg.id ? updatedOrg : org)));
-//           setShowForm(false);
-//           setFormData({ id: null, name: "", address: "", location: "" });
-//           setIsUpdate(false);
-//         })
-//         .catch(err => console.error(err));
-//     } else {
-//       // add call
-//       fetch("http://localhost:8080/api/organizations", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(formData),
-//       })
-//         .then(res => res.json())
-//         .then(newOrg => {
-//           setOrganizations([...organizations, newOrg]);
-//           setShowForm(false);
-//           setFormData({ id: null, name: "", address: "", location: "" });
-//         })
-//         .catch(err => console.error(err));
-//     }
-//   };
-
-//   // Open Update form with pre-filled data
-//   const handleUpdateClick = (org) => {
-//     setFormData(org);
-//     setIsUpdate(true);
-//     setShowForm(true);
-//   };
-
-//   // Open View popup
-//   const handleViewClick = (org) => {
-//     setFormData(org);
-//     setShowView(true);
-//   };
-
-//   return (
-//     <div>
-//       <div style={{ display: "flex" }}>
-//         <h1>Organizations</h1>
-//         <button style={{height: "40px", width: "280px", backgroundColor: "green", color: "white", marginLeft: "auto", marginTop: "20px", border: "2px solid green", borderRadius: "20px"}}
-//           onClick={() => {
-//             setFormData({ id: null, name: "", address: "", location: "" });
-//             setIsUpdate(false);
-//             setShowForm(true);
-//           }}
-//         >
-//           <IoMdAdd /> Add Organization
-//         </button>
-//       </div>
-
-//       {/* Search Box */}
-//       <div style={{ height: "150px", width: "100%", border: "2px solid black", borderRadius: "5px" }}>
-//         <h2 style={{ marginLeft: "25px" }}>Search & Filters</h2>
-//         <div style={{ display: "flex", gap: "30px", marginLeft: "25px" }}>
-//           <div style={{ position: "relative", width: "250px" }}>
-//             <input
-//               type="text"
-//               placeholder="Search by name"
-//               style={{
-//                 width: "100%",
-//                 padding: "10px 35px 10px 10px",
-//                 border: "1px solid #000",
-//                 borderRadius: "8px",
-//                 outline: "none",
-//                 fontSize: "14px",
-//               }}
-//             />
-//             <IoSearch style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", color: "#888" }} />
-//           </div>
-//           <div style={{ position: "relative", width: "250px", marginLeft: "40px" }}>
-//             <input
-//               type="text"
-//               placeholder="Search by location"
-//               style={{
-//                 width: "100%",
-//                 padding: "10px 35px 10px 10px",
-//                 border: "1px solid #000",
-//                 borderRadius: "8px",
-//                 outline: "none",
-//                 fontSize: "14px",
-//               }}
-//             />
-//             <IoSearch style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", color: "#888" }} />
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Table */}
-//       <h1>List of Organizations</h1>
-//       <table border="1" cellPadding="10" style={{ borderCollapse: "collapse", width: "100%", margin: "20px auto" }}>
-//         <thead style={{ backgroundColor: "#f0f0f0" }}>
-//           <tr>
-//             <th>ID</th>
-//             <th>Name</th>
-//             <th>Address</th>
-//             <th>Location</th>
-//             <th>Actions</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {organizations.map((org) => (
-//             <tr key={org.id}>
-//               <td>{org.id}</td>
-//               <td>{org.name}</td>
-//               <td>{org.address}</td>
-//               <td>{org.location}</td>
-//               <td>
-//                 <button
-//                   style={{ height: "30px", width: "100px", backgroundColor: "#CAFD34", color: "#3C12B2", fontWeight: "bold", border: "1px solid black", borderRadius: "5px", marginRight: "5px" }}
-//                   onClick={() => handleUpdateClick(org)}
-//                 >
-//                   Update
-//                 </button>
-//                 <button
-//                   style={{ height: "30px", width: "100px", backgroundColor: "#CAFD34", color: "#3C12B2", fontWeight: "bold", border: "1px solid black", borderRadius: "5px", marginRight: "5px" }}
-//                   onClick={() => handleViewClick(org)}
-//                 >
-//                   View
-//                 </button>
-//                 <button style={{ height: "30px", width: "100px", backgroundColor: "red", color: "white", fontWeight: "bold", border: "1px solid black", borderRadius: "5px" }}>
-//                   Disable
-//                 </button>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-
-//       {/* Popup Form (Add / Update) */}
-//       {showForm && (
-//         <div
-//           style={{
-//             position: "fixed",
-//             top: 0,
-//             left: 0,
-//             width: "100%",
-//             height: "100%",
-//             backgroundColor: "rgba(0,0,0,0.5)",
-//             display: "flex",
-//             justifyContent: "center",
-//             alignItems: "center",
-//           }}
-//         >
-//           <div style={{ background: "white", padding: "20px", borderRadius: "10px", width: "400px" }}>
-//             <h2>{isUpdate ? "Update Organization" : "Add Organization"}</h2>
-//             <form onSubmit={handleSubmit}>
-//               <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleInputChange} required style={{ width: "100%", marginBottom: "10px", padding: "8px" }} />
-//               <input type="text" name="address" placeholder="Address" value={formData.address} onChange={handleInputChange} required style={{ width: "100%", marginBottom: "10px", padding: "8px" }} />
-//               <input type="text" name="location" placeholder="Location" value={formData.location} onChange={handleInputChange} required style={{ width: "100%", marginBottom: "10px", padding: "8px" }} />
-//               <button type="submit" style={{ background: "green", color: "white", padding: "10px", width: "100%", border: "none", borderRadius: "5px" }}>
-//                 {isUpdate ? "Update" : "Submit"}
-//               </button>
-//             </form>
-//             <button onClick={() => setShowForm(false)} style={{ marginTop: "10px", width: "100%", padding: "10px", borderRadius: "5px" }}>Cancel</button>
-//           </div>
-//         </div>
-//       )}
-
-//       {/* View Popup */}
-//       {showView && (
-//         <div
-//           style={{
-//             position: "fixed",
-//             top: 0,
-//             left: 0,
-//             width: "100%",
-//             height: "100%",
-//             backgroundColor: "rgba(0,0,0,0.5)",
-//             display: "flex",
-//             justifyContent: "center",
-//             alignItems: "center",
-//           }}
-//         >
-//           <div style={{ background: "white", padding: "20px", borderRadius: "10px", width: "400px" }}>
-//             <h2>View Organization</h2>
-//             <p><b>ID:</b> {formData.id}</p>
-//             <p><b>Name:</b> {formData.name}</p>
-//             <p><b>Address:</b> {formData.address}</p>
-//             <p><b>Location:</b> {formData.location}</p>
-//             <button onClick={() => setShowView(false)} style={{ marginTop: "10px", width: "100%", padding: "10px", borderRadius: "5px" }}>Close</button>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default Organization;
-
-
 import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
   Card,
   CardContent,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
+  Drawer,
   IconButton,
   Table,
   TableBody,
@@ -243,10 +13,20 @@ import {
   TableRow,
   TextField,
   Typography,
+  Menu,
+  MenuItem,
+  Chip,
+  TablePagination,
+  useTheme,
+  Divider,
 } from "@mui/material";
 import { IoMdAdd } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
-import { useTheme } from "@mui/material/styles";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import EditIcon from "@mui/icons-material/Edit";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { InputAdornment } from "@mui/material";
+
 
 function Organization() {
   const [showForm, setShowForm] = useState(false);
@@ -259,6 +39,14 @@ function Organization() {
   });
   const [organizations, setOrganizations] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [menuAnchor, setMenuAnchor] = useState(null);
+  const [selectedOrg, setSelectedOrg] = useState(null);
+
+  // Pagination
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const theme = useTheme();
 
   useEffect(() => {
     fetch("http://localhost:8080/api/organizations")
@@ -315,140 +103,232 @@ function Organization() {
   };
 
   const handleViewClick = (org) => {
-    setFormData(org);
+    setSelectedOrg(org);
     setShowView(true);
   };
 
-  const theme = useTheme(); 
-
   return (
-    <Box>
+    <Box sx={{
+      height:"90vh",
+      background:
+            theme.palette.mode === "light"
+              ? "#fafafaff"
+              : theme.palette.background.paper,
+    }}>
+      
       {/* Header */}
-      <Box display="flex" alignItems="center" mb={3}>
-        <Typography variant="h4" fontWeight="bold">
-          Organizations
-        </Typography>
-        <Button
-          variant="contained"
-          color="success"
-          startIcon={<IoMdAdd />}
-          sx={{ ml: "auto", borderRadius: "20px" }}
-          onClick={() => {
-            setFormData({ id: null, name: "", address: "", location: "" });
-            setIsUpdate(false);
-            setShowForm(true);
-          }}
-        >
-          Add Organization
-        </Button>
+
+       <Box display="flex" alignItems="center">
+          <Box sx={{mb:2}}>
+            <Typography variant="h4" fontWeight="bold" gutterBottom>
+              Organizations Management
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              sx={{ fontSize: "0.95rem" }}
+            >
+              Manage companies, departments, and compliance status.
+            </Typography>
+          </Box>
+          <Button
+            variant="contained"
+            sx={{
+              ml: "auto",
+              borderRadius: "10px",
+              textTransform: "none",
+              backgroundColor: "#06923E",
+              color: "#ffffffff",
+              "&:hover": { backgroundColor: "#0a833aff" },
+            }}
+            startIcon={<IoMdAdd />}
+            onClick={() => {
+              setFormData({ id: null, name: "", address: "", location: "" });
+              setIsUpdate(false);
+              setShowForm(true);
+            }}
+          >
+            Add Organization
+          </Button>
+          
+        </Box>
+    <Box
+      display="flex"
+      flexDirection="row"
+      width="100%"
+  //      border={`1px solid ${
+  //   theme.palette.mode === "dark" ? "#444" : "#e0e0e0ff"
+  // }`}
+      borderRadius={2}
+      // p={2}
+      gap={2}
+      marginBottom={5}
+      marginTop={2}
+    >
+      {/* Left: Search Bar */}
+      <Box
+        flex={1}
+        display="flex"
+        alignItems="center"
+        justifyContent="flex-start"
+      >
+        <TextField
+          fullWidth
+          placeholder="Search Organizations ID, Organization Name..."
+          variant="outlined"
+          size="small"
+          InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <IoSearch style={{ color: "#888", fontSize: "20px" }} />
+          </InputAdornment>
+        ),
+      }}
+        />
       </Box>
 
-      {/* Search & Filters */}
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            Search & Filters
-          </Typography>
-          <Box display="flex" gap={3}>
-            <Box sx={{ position: "relative", width: "250px" }}>
-              <TextField
-                fullWidth
-                placeholder="Search by name"
-                variant="outlined"
-                size="small"
-              />
-              <IconButton
-                sx={{ position: "absolute", right: "5px", top: "5px" }}
-              >
-                <IoSearch />
-              </IconButton>
-            </Box>
-            <Box sx={{ position: "relative", width: "250px" }}>
-              <TextField
-                fullWidth
-                placeholder="Search by location"
-                variant="outlined"
-                size="small"
-              />
-              <IconButton
-                sx={{ position: "absolute", right: "5px", top: "5px" }}
-              >
-                <IoSearch />
-              </IconButton>
-            </Box>
-          </Box>
-        </CardContent>
-      </Card>
+      {/* Right: Filters */}
+      <Box
+        flex={1}
+        display="flex"
+        alignItems="center"
+        justifyContent="flex-end"
+        gap={2}
+      >
+        <TextField select size="small" label="All Status" defaultValue="all">
+          <MenuItem value="all">All Status</MenuItem>
+          <MenuItem value="active">Active</MenuItem>
+          <MenuItem value="inactive">Inactive</MenuItem>
+        </TextField>
+
+        <TextField select size="small" label="All Location" defaultValue="all">
+          <MenuItem value="all">All Location</MenuItem>
+          <MenuItem value="india">India</MenuItem>
+          <MenuItem value="germany">Germany</MenuItem>
+          <MenuItem value="spain">Spain</MenuItem>
+        </TextField>
+      </Box>
+    </Box>
 
       {/* Table */}
-      <Typography variant="h5" gutterBottom>
-        List of Organizations
-      </Typography>
-      <Table>
-      <TableHead
-  sx={{
-    backgroundColor:
-      theme.palette.mode === "dark"
-        ? theme.palette.grey[900] // dark background
-        : theme.palette.grey[200], // light background
-  }}
->
-  <TableRow>
-    <TableCell sx={{ color: theme.palette.text.primary }}>ID</TableCell>
-    <TableCell sx={{ color: theme.palette.text.primary }}>Name</TableCell>
-    <TableCell sx={{ color: theme.palette.text.primary }}>Address</TableCell>
-    <TableCell sx={{ color: theme.palette.text.primary }}>Location</TableCell>
-    <TableCell sx={{ color: theme.palette.text.primary }}>Actions</TableCell>
-  </TableRow>
-</TableHead>
-        <TableBody>
-          {organizations.map((org) => (
-            <TableRow key={org.id}>
-              <TableCell>{org.id}</TableCell>
-              <TableCell>{org.name}</TableCell>
-              <TableCell>{org.address}</TableCell>
-              <TableCell>{org.location}</TableCell>
-              <TableCell>
-                <Button
-                  variant="contained"
-                  sx={{
-                    mr: 1,
-                    backgroundColor: "#CAFD34",
-                    color: "#3C12B2",
-                    fontWeight: "bold",
-                  }}
-                  onClick={() => handleUpdateClick(org)}
-                >
-                  Update
-                </Button>
-                <Button
-                  variant="contained"
-                  sx={{
-                    mr: 1,
-                    backgroundColor: "#CAFD34",
-                    color: "#3C12B2",
-                    fontWeight: "bold",
-                  }}
-                  onClick={() => handleViewClick(org)}
-                >
-                  View
-                </Button>
-                <Button variant="contained" color="error">
-                  Disable
-                </Button>
-              </TableCell>
+      <Card sx={{ borderRadius: 3 }}>
+        <Table>
+          <TableHead
+            sx={{
+              backgroundColor:
+                theme.palette.mode === "light" ? "#f1f3f5" : "#2a2a2a",
+            }}
+          >
+            <TableRow>
+              <TableCell><b>Organization ID</b></TableCell>
+              <TableCell><b>Organization Name</b></TableCell>
+              <TableCell><b>Location</b></TableCell>
+              <TableCell><b>Status</b></TableCell>
+              <TableCell align="center"><b>Action</b></TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {organizations
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((org) => (
+                <TableRow
+                  key={org.id}
+                   sx={(theme) => ({
+    "&:hover": {
+      backgroundColor:
+        theme.palette.mode === "dark" ? "#2e2e2e" : "#e7f5ec",
+      color: theme.palette.mode === "dark" ? "#fff" : "inherit",
+    },
+  })}
+                >
+                  <TableCell>{`ORG-${org.id}`}</TableCell>
+                  <TableCell>{org.name}</TableCell>
+                  <TableCell>{org.location}</TableCell>
+                  <TableCell>
+                    <Chip
+                      label="Active"
+                      sx={{
+                        backgroundColor: "#e7f5ec",
+                        color: "#1a4d2e",
+                        fontWeight: "bold",
+                      }}
+                      size="small"
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <IconButton onClick={() => handleViewClick(org)}>
+                      <VisibilityIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton onClick={() => handleUpdateClick(org)}>
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton
+                      onClick={(e) => {
+                        setMenuAnchor(e.currentTarget);
+                        setSelectedOrg(org);
+                      }}
+                    >
+                      <MoreVertIcon fontSize="small" />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+        <Divider />
+        <TablePagination
+          component="div"
+          count={organizations.length}
+          page={page}
+          onPageChange={(e, newPage) => setPage(newPage)}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={(e) => {
+            setRowsPerPage(parseInt(e.target.value, 10));
+            setPage(0);
+          }}
+          rowsPerPageOptions={[5, 10, 25]}
+          sx={{
+            "& .Mui-selected": {
+              backgroundColor: "#e7f5ec !important",
+              color: "#1a4d2e !important",
+              fontWeight: "bold",
+            },
+          }}
+        />
+      </Card>
 
-      {/* Add / Update Dialog */}
-      <Dialog open={showForm} onClose={() => setShowForm(false)}>
-        <DialogTitle>
-          {isUpdate ? "Update Organization" : "Add Organization"}
-        </DialogTitle>
-        <DialogContent>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
+      {/* More menu */}
+      <Menu
+        anchorEl={menuAnchor}
+        open={Boolean(menuAnchor)}
+        onClose={() => setMenuAnchor(null)}
+      >
+        <MenuItem onClick={() => alert("Report " + selectedOrg?.name)}>
+          Report
+        </MenuItem>
+        <MenuItem onClick={() => alert("Archived " + selectedOrg?.name)}>
+          Archive
+        </MenuItem>
+      </Menu>
+
+      {/* Edit/Add Drawer */}
+      <Drawer
+        anchor="right"
+        open={showForm}
+        onClose={() => setShowForm(false)}
+        PaperProps={{
+          sx: { width: "50%", maxWidth: "600px" },
+        }}
+      >
+        <Box p={3} height="100%" display="flex" flexDirection="column">
+          <Typography variant="h5" fontWeight="bold" gutterBottom>
+            {isUpdate ? "Update Organization" : "Add Organization"}
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{ flex: 1, display: "flex", flexDirection: "column" }}
+          >
             <TextField
               fullWidth
               name="name"
@@ -476,43 +356,72 @@ function Organization() {
               margin="normal"
               required
             />
+            <Box mt="auto">
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                sx={{
+                  backgroundColor: "#e7f5ec",
+                  color: "#1a4d2e",
+                  "&:hover": { backgroundColor: "#d1ecda" },
+                }}
+              >
+                {isUpdate ? "Update" : "Submit"}
+              </Button>
+              <Button
+                onClick={() => setShowForm(false)}
+                variant="outlined"
+                fullWidth
+                sx={{ mt: 2 }}
+              >
+                Cancel
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      </Drawer>
+
+      {/* View Drawer */}
+      <Drawer
+        anchor="right"
+        open={showView}
+        onClose={() => setShowView(false)}
+        PaperProps={{
+          sx: { width: "50%", maxWidth: "600px" },
+        }}
+      >
+        <Box p={3} height="100%">
+          <Typography variant="h5" fontWeight="bold" gutterBottom>
+            View Organization
+          </Typography>
+          {selectedOrg && (
+            <Box>
+              <Typography>
+                <b>ID:</b> {selectedOrg.id}
+              </Typography>
+              <Typography>
+                <b>Name:</b> {selectedOrg.name}
+              </Typography>
+              <Typography>
+                <b>Address:</b> {selectedOrg.address}
+              </Typography>
+              <Typography>
+                <b>Location:</b> {selectedOrg.location}
+              </Typography>
+            </Box>
+          )}
+          <Box mt={3}>
             <Button
-              type="submit"
+              onClick={() => setShowView(false)}
+              variant="outlined"
               fullWidth
-              variant="contained"
-              sx={{ mt: 2 }}
-              color="success"
             >
-              {isUpdate ? "Update" : "Submit"}
+              Close
             </Button>
           </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowForm(false)}>Cancel</Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* View Dialog */}
-      <Dialog open={showView} onClose={() => setShowView(false)}>
-        <DialogTitle>View Organization</DialogTitle>
-        <DialogContent>
-          <Typography>
-            <b>ID:</b> {formData.id}
-          </Typography>
-          <Typography>
-            <b>Name:</b> {formData.name}
-          </Typography>
-          <Typography>
-            <b>Address:</b> {formData.address}
-          </Typography>
-          <Typography>
-            <b>Location:</b> {formData.location}
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowView(false)}>Close</Button>
-        </DialogActions>
-      </Dialog>
+        </Box>
+      </Drawer>
     </Box>
   );
 }
