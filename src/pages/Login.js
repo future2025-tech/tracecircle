@@ -24,6 +24,7 @@ function Login() {
 
     if (res.ok) {
       localStorage.setItem("isLoggedIn", "true"); // ✅ save login flag
+      localStorage.setItem("userEmail", formData.email);
       navigate("/organization");
     } else {
       alert("Invalid email or password");

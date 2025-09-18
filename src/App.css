@@ -1,4 +1,6 @@
-
+.sidebar-navigation-text{
+  font-size: 10px !important;
+}
 /* .app-container {
   display: flex;
   min-height: 100vh;

@@ -19,11 +19,15 @@ import HelpIcon from "@mui/icons-material/Help";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/logo Tracecircle.png";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"; // Added for the collapse button
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+import GroupIcon from '@mui/icons-material/Group';
 
 const navItems = [
   { text: "Dashboard", icon: <DashboardIcon />, path: "/" },
-  { text: "Organizations", icon: <BusinessIcon />, path: "/organization" },
-  { text: "Products", icon: <BentoIcon />, path: "/product" },
+  { text: "Organizations Master", icon: <BusinessIcon />, path: "/organization" },
+  { text: "Products Master", icon: <BentoIcon />, path: "/product" },
+  { text: "Roles Master", icon: <GroupIcon/>, path: "/roles" },
+  { text: "Department Master", icon: <CorporateFareIcon/>, path: "/departments" },
   { text: "Settings", icon: <SettingsIcon />, path: "/settings" },
 ];
 
@@ -64,21 +68,26 @@ export default function Sidebar({ drawerWidth, collapsedWidth, collapsed, onColl
       <List sx={{ flexGrow: 1 }}>
         {navItems.map((item) => (
            <ListItemButton
+            // className="sidebar-navigation-text"
             key={item.text}
             component={Link}
             to={item.path}
             selected={location.pathname === item.path}
             sx={(theme) => ({
+              fontSize: '14px', // this will apply to direct children unless overridden
+            "& .MuiListItemText-primary": {
+              fontSize: '14px',
+            },
               borderRadius: 2,
               mx: 1,
               my: 0.5,
               "&:hover": {
                 backgroundColor:
-                  theme.palette.mode === "dark" ? "#303030" : "#E7F5EC",
+                  theme.palette.mode === "dark" ? "#303030" : "#D6EFE0",
               },
               "&.Mui-selected": {
                 backgroundColor:
-                  theme.palette.mode === "dark" ? "#303030" : "#E7F5EC",
+                  theme.palette.mode === "dark" ? "#303030" : "#D6EFE0",
                 "&:hover": {
                   backgroundColor:
                     theme.palette.mode === "dark" ? "#3a3a3a" : "#D6EFE0",
@@ -86,24 +95,13 @@ export default function Sidebar({ drawerWidth, collapsedWidth, collapsed, onColl
               },
             })}
           >
-            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemIcon sx={{
+              minWidth: 32, // 🔹 reduces default space (was 56px)
+              mr: 1,        // 🔹 small gap between icon & text
+              fontSize: "18px",
+            }}>{item.icon}</ListItemIcon>
             {!collapsed && <ListItemText primary={item.text} />}
           </ListItemButton>
-
-          // <ListItemButton
-          //   key={item.text}
-          //   component={Link}
-          //   to={item.path}
-          //   selected={location.pathname === item.path}
-          //   sx={{
-          //     borderRadius: 2,
-          //     mx: 1,
-          //     my: 0.5,
-          //   }}
-          // >
-          //   <ListItemIcon>{item.icon}</ListItemIcon>
-          //   {!collapsed && <ListItemText primary={item.text} />}
-          // </ListItemButton>
         ))}
       </List>
 

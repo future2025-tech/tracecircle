@@ -125,6 +125,7 @@
 // export default App;
 // App.jsx
 import React from "react";
+import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -132,10 +133,10 @@ import ForgotPassword from "./pages/ForgotPassword";
 
 // Pages
 import Organization from "./pages/Organization";
-import Department from "./pages/Department";
+import Departments from "./pages/Departments";
 import Product from "./pages/Product";
 import Employee from "./pages/Employee";
-import Role from "./pages/Role";
+import Roles from "./pages/Roles";
 import Logistic from "./pages/Logistic";
 import Supply from "./pages/Supply";
 import Retailer from "./pages/Retailer";
@@ -145,6 +146,7 @@ import Settings from "./pages/Settings";
 
 // Layout (MUI Navbar + Sidebar)
 import Layout from "./layout/Layout";
+
 
 function App() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -164,10 +166,10 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/organization" element={<Organization />} />
-          <Route path="/department" element={<Department />} />
+          <Route path="/departments" element={<Departments />} />
           <Route path="/product" element={<Product />} />
           <Route path="/employee" element={<Employee />} />
-          <Route path="/role" element={<Role />} />
+          <Route path="/roles" element={<Roles />} />
           <Route path="/logistic" element={<Logistic />} />
           <Route path="/supply" element={<Supply />} />
           <Route path="/retailer" element={<Retailer />} />

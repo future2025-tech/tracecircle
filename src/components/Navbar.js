@@ -27,6 +27,9 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"; // Collapse butto
 import ColorModeToggle from "./ColorModeToggle"; // Color mode toggle
 import { useNavigate } from "react-router-dom";
 
+
+const userEmail = localStorage.getItem("userEmail") || "User";
+
 export default function Navbar({ drawerWidth, onToggleSidebar }) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -36,9 +39,11 @@ export default function Navbar({ drawerWidth, onToggleSidebar }) {
   const handleClose = () => setAnchorEl(null);
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn"); 
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userEmail");  
     navigate("/login");
   };
+  
   return (
     <AppBar
       position="fixed"
@@ -85,7 +90,7 @@ export default function Navbar({ drawerWidth, onToggleSidebar }) {
               fontWeight={600}
               sx={{ display: { xs: "none", sm: "block" } }}
             >
-              James Wilson
+              {userEmail}
             </Typography>
             <KeyboardArrowDownIcon fontSize="small" />
           </Box>
