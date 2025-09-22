@@ -146,6 +146,8 @@ import Settings from "./pages/Settings";
 
 // Layout (MUI Navbar + Sidebar)
 import Layout from "./layout/Layout";
+import OtpVerification from "./pages/Otp-verification";
+import ChangePasswordPage from "./pages/New-Password";
 
 
 function App() {
@@ -157,7 +159,9 @@ function App() {
         {/* Auth routes */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/otp-verification" element={<OtpVerification/>} />
+        <Route path="/new-password" element={<ChangePasswordPage/>} />
 
         {/* Protected Dashboard routes */}
         <Route

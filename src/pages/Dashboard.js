@@ -1,9 +1,14 @@
 // Dashboard.jsx
 import React from "react";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 function Dashboard() {
-  return <Typography variant="h4">Welcome to Dashboard</Typography>;
+  return (
+    <Box>
+      <Typography variant="h4">Welcome to Dashboard</Typography>
+    </Box>
+    
+  );   
 }
 
 export default Dashboard;
